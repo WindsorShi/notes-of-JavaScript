@@ -54,6 +54,46 @@
        不利于实现扩展和对源代码进行有效地组织管理。    
        不得不承认，类式继承方式在语言实现上更具健壮性，且在构建可复用代码和组织架构程序方面具有明显的优势。
        使用Simple Inheritance库提供的 extend 方法声明类非常简单
+  使用 Simple Inheritance 实现类式继承
+
+```javascript
+// 声明 Person 类
+ var Person = Class.extend( { 
+    _issleeping: true, 
+    init: function( name ) { 
+        this._name = name; 
+    }, 
+    isSleeping: function() { 
+        return this._issleeping; 
+    } 
+ } ); 
  
+// 声明 Programmer 类，并继承 Person 
+ var Programmer = Person.extend( { 
+    init: function( name, issleeping ) { 
+        
+// 调用父类构造函数
+        this._super( name ); 
+        
+// 设置自己的状态
+        this._issleeping = issleeping; 
+    } 
+ } ); 
+ var person = new Person( "张三" ); 
+ var diors = new Programmer( "张江男", false ); 
+ 
+// 打印 true 
+ console.log( person.isSleeping() ); 
+ 
+// 打印 false 
+ console.log( diors.isSleeping() ); 
+ 
+// 此处全为 true，故打印 true 
+ console.log( person instanceof Person && person instanceof Class 
+    && diors instanceof Programmer && 
+    diors instanceof Person && diors instanceof Class );
+``` 
+从本质上讲，var Person = Class.extend(…)该语句中，  
+左边的 Person 实际上是获得了由 Class 调用 extend 方法返回的一个构造器，也即一个 function 对象的引用。
  
  
